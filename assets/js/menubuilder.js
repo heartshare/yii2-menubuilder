@@ -48,7 +48,8 @@ MenuBuilder.prototype.update = function () {
 };
 
 MenuBuilder.prototype.getNewId = function () {
-    return this.getMaxId() + 1;
+    var max = this.getMaxId() || 0;
+    return max + 1;
 };
 
 MenuBuilder.prototype.getMaxId = function () {

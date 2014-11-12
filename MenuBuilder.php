@@ -17,29 +17,29 @@ class MenuBuilder extends \yii\widgets\InputWidget {
     public $itemsPage = [];
 
     public function init() {
-        return parent::init();
+        parent::init();
+        $this->registerJs();
     }
 
     public function run() {
-        $this->render('menu', [
-            'itemsPage' => $this->itemsPage,
-            'model' => $this->model,
-            'attribute' => $this->attribute,
-            'widget_id' => $this->id,
+        return $this->render('menu', [
+                'itemsPage' => $this->itemsPage,
+                'model' => $this->model,
+                'attribute' => $this->attribute,
+                'widget_id' => $this->id,
         ]);
     }
 
     public function registerJs() {
         /* @var $view yii\web\View */
         $view = $this->getView();
-
         MenuBuilderAssets::register($view);
         $options = [
-            'nestable_out_id' => Html::getInputId($this->model, $this->attribute),
-            'nestable_id' => $this->id,
+            'nestable_out_id' => '#' . Html::getInputId($this->model, $this->attribute),
+            'nestable_id' => '#' . $this->id,
         ];
-        $js = "var menubuilder = new MenuBuilder(" + Json::decode($options) + ");";
-        $view->registerJs($js, View::POS_READY);
+        $js = "var menubuilder = new MenuBuilder(" + Json::encode($options) + ");";
+        $view->registerJs($js, View::POS_END);
     }
 
     public static function renderList($items) {
