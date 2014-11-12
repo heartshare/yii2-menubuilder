@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\Collapse;
-use sgdot\menubuider\MenuBuilder;
+use sgdot\menubuilder\MenuBuilder;
 ?>
 
 <?php
