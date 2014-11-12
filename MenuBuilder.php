@@ -33,13 +33,13 @@ class MenuBuilder extends \yii\widgets\InputWidget {
     public function registerJs() {
         /* @var $view yii\web\View */
         $view = $this->getView();
-        MenuBuilderAssets::register($view);
         $options = [
             'nestable_out_id' => '#' . Html::getInputId($this->model, $this->attribute),
             'nestable_id' => '#' . $this->id,
         ];
         $js = "var menubuilder = new MenuBuilder(" + Json::encode($options) + ");";
         $view->registerJs($js, View::POS_END);
+        MenuBuilderAssets::register($view);
     }
 
     public static function renderList($items) {
