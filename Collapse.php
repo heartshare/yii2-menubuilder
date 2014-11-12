@@ -1,6 +1,6 @@
 <?php
 
-namespace sgdot\menubuider;
+namespace sgdot\menubuilder;
 
 /**
  * Collapse

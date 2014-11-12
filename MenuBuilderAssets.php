@@ -2,7 +2,7 @@
 
 Yii::setAlias('@menubuilder', __DIR__);
 
-namespace sgdot\menubuider;
+namespace sgdot\menubuilder;
 
 /**
  * MenuBuilderAssets

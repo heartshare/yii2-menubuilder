@@ -1,9 +1,8 @@
 <?php
 
-namespace sgdot\menubuider;
+namespace sgdot\menubuilder;
 
 use Yii;
-use sgdot\menubuider\MenuBuilderAssets;
 use yii\helpers\Json;
 use yii\web\View;
 use yii\helpers\Html;
