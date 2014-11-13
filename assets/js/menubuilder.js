@@ -2,10 +2,6 @@ Array.prototype.max = function () {
     return Math.max.apply(null, this);
 };
 
-Array.prototype.min = function () {
-    return Math.min.apply(null, this);
-};
-
 var updateOutput = function (e)
 {
     var list = e.length ? e : $(e.target),
@@ -48,7 +44,7 @@ MenuBuilder.prototype.update = function () {
 };
 
 MenuBuilder.prototype.getNewId = function () {
-    var max = this.getMaxId() || 0;
+    var max = this.getMaxId();
     return max + 1;
 };
 
@@ -57,7 +53,7 @@ MenuBuilder.prototype.getMaxId = function () {
     $('li', this.options.nestable_id).each(function () {
         ids.push($(this).attr('data-id'));
     });
-    return ids.max();
+    return ids.length === 0 ? 0 : ids.max();
 };
 
 MenuBuilder.prototype.setData = function (el, data) {
@@ -109,6 +105,7 @@ MenuBuilder.prototype.setEvents = function () {
         var form = $(this).closest('.div-form');
         var data = form.serializeAny();
         var li = $('<li></li>');
+        li.attr('class', 'dd-item');
         var tmpl = MenuBuilder.template_type_2;
         var index = self.getNewId();
         var html = tmpl
@@ -127,7 +124,6 @@ MenuBuilder.prototype.setEvents = function () {
 
     $(document).on('click', '.btn-add-pages', function () {
         var form = $(this).closest('.div-form');
-//        var data = form.serializeAny();
         var tmpl = MenuBuilder.template_type_1;
         var index = self.getNewId();
         var data = [];
@@ -136,7 +132,7 @@ MenuBuilder.prototype.setEvents = function () {
         });
         for (var i = 0; i < data.length; i++) {
             var li = $('<li></li>');
-            console.log('for', data[i]);
+            li.attr('class', 'dd-item');
             var html = tmpl
                     .split('{index}').join(index)
                     .split('{url-value}').join(data[i]['url'])
