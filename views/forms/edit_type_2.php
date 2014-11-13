@@ -11,6 +11,7 @@ Collapse::widget([
             'label' => $item['label'],
             'content' => $this->render('_edit_type_2_form', ['item' => $item]),
             'options' => ['class' => 'dd-handle'],
+            'contentOptions' => ['class' => 'dd-nodrag'],
         ],
     ]
 ]);
