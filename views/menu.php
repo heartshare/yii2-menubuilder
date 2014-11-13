@@ -36,7 +36,7 @@ $items[] = [
                     ?>
                 </div>
 
-                <div class="dd col-lg-6 nestable-structure dd" id="<?= $widget_id ?>">
+                <div class="col-lg-6 nestable-structure dd" id="<?= $widget_id ?>">
                     <?php $itemsData = yii\helpers\Json::decode($model->$attribute) ?>
                     <?= MenuBuilder::renderList($itemsData); ?>
                 </div>

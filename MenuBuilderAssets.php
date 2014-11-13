@@ -20,7 +20,6 @@ class MenuBuilderAssets extends \yii\web\AssetBundle {
         'js/menubuilder.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
