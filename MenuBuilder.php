@@ -55,13 +55,13 @@ class MenuBuilder extends \yii\widgets\InputWidget {
         $html = Html::beginTag('li', [
                 'class' => 'dd-item',
                 'data-id' => $item['id'],
-                'data-url' => $item['url'],
+                'data-url' => is_array($item['url']) ? Json::encode($item['url']) : $item['url'],
                 'data-label' => $item['label'],
                 'data-options-title' => $item['optionsTitle'],
                 'data-options-class' => $item['optionsClass'],
         ]);
         $data = ['item' => $item, 'index' => $index];
-        $html .= is_array($item['url']) ? $view->render('forms/edit_type_1', $data) : $view->render('forms/edit_type_2', $data);
+        $html .= is_array($item['url']) ? $view->render('forms/edit_type_2', $data) : $view->render('forms/edit_type_1', $data);
         if (isset($item['children'])) {
             $html.=self::renderList($item['children']);
         }

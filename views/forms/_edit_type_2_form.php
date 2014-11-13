@@ -1,6 +1,11 @@
+<?php
+
+use yii\helpers\Json;
+?>
+
 <div class="form-group">
     <label>Страница "<?= isset($item['label']) ? $item['label'] : '' ?>"</label>
-    <input name="data-url" type="hidden" class="form-control" value="<?= isset($item['url']) ? $item['url'] : '' ?>">
+    <input name="data-url" type="hidden" class="form-control" value="<?= isset($item['url']) ? Json::encode($item['url']) : '' ?>">
 </div>
 <div class="row">
     <div class="form-group col-xs-6">
