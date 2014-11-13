@@ -2,8 +2,8 @@
 
 use sgdot\menubuilder\Collapse;
 ?>
-<div class="dd-handle dd3-handle">Drag</div><div class="dd3-content">Item 17</div>
-<?php
+<?=
+
 Collapse::widget([
     'items' => [
         [
