@@ -55,7 +55,7 @@ class MenuBuilder extends \yii\widgets\InputWidget {
         $html = Html::beginTag('li', [
                 'class' => 'dd-item',
                 'data-id' => $item['id'],
-                'data-url' => $item['url'],
+                'data-url' => is_array($item['url']) ? Json::encode($item['url']) : $item['url'],
                 'data-label' => $item['label'],
                 'data-options-title' => $item['optionsTitle'],
                 'data-options-class' => $item['optionsClass'],
