@@ -152,8 +152,8 @@ MenuBuilder.prototype.setEvents = function () {
 
 MenuBuilder.count = 0;
 MenuBuilder.template_type_1 =
-        '<div class="panel-group dd-handle" id="accordion-{index}" role="tablist" aria-multiselectable="true">'
-        + '    <div class="panel panel-default">'
+        '<div class="panel-group" id="accordion-{index}" role="tablist" aria-multiselectable="true">'
+        + '    <div class="panel panel-default dd-handle">'
         + '        <div class="panel-heading" role="tab" id="heading-{index}">'
         + '            <h4 class="panel-title">'
         + '                <span class="glyphicon glyphicon-move"></span>'
@@ -195,8 +195,8 @@ MenuBuilder.template_type_1 =
         + '</div>';
 
 MenuBuilder.template_type_2 =
-        '<div class="panel-group dd-handle" id="accordion-{index}" role="tablist" aria-multiselectable="true">'
-        + '    <div class="panel panel-default">'
+        '<div class="panel-group" id="accordion-{index}" role="tablist" aria-multiselectable="true">'
+        + '    <div class="panel panel-default dd-handle">'
         + '        <div class="panel-heading" role="tab" id="heading-{index}">'
         + '            <h4 class="panel-title">'
         + '                <span class="glyphicon glyphicon-move"></span>'

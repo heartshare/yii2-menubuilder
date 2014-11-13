@@ -19,9 +19,6 @@ $items[] = [
 ];
 ?>
 
-<?php
-MenuBuilder::renderList($model->$attribute);
-?>
 <div class="col-md-12">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -40,7 +37,8 @@ MenuBuilder::renderList($model->$attribute);
                 </div>
 
                 <div class="dd col-lg-6 nestable-structure dd" id="<?= $widget_id ?>">
-                    <?= MenuBuilder::renderList($model->$attribute); ?>
+                    <?php $itemsData = yii\helpers\Json::decode($model->$attribute) ?>
+                    <?= MenuBuilder::renderList($itemsData); ?>
                 </div>
 
             </div>
