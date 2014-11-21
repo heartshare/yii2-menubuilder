@@ -54,11 +54,12 @@ class MenuBuilder extends \yii\widgets\InputWidget {
         $view = Yii::$app->getView();
         $html = Html::beginTag('li', [
                 'class' => 'dd-item',
-                'data-id' => $item['id'],
-                'data-url' => is_array($item['url']) ? Json::encode($item['url']) : $item['url'],
-                'data-label' => $item['label'],
-                'data-options-title' => $item['options']['title'],
-                'data-options-class' => $item['options']['class'],
+                'data' => [
+                    'id' => $item['id'],
+                    'url' => is_array($item['url']) ? Json::encode($item['url']) : $item['url'],
+                    'label' => $item['label'],
+                    'options' => $item['options'],
+                ],
         ]);
         $data = ['item' => $item, 'index' => $index];
         var_dump($item['url']);
