@@ -17,8 +17,28 @@ var updateOutput = function (e)
     $.fn.serializeAny = function () {
         var ret = {};
         $.each($(this).find(':input'), function () {
-            ret[$(this).attr('name')] = $(this).val();
+            var name = $(this).attr('name');
+            var val = $(this).val();
+            var expr = /([a-zA-Z0-9-]*?)\[([a-zA-Z0-9-]*?)\]/;
+            var match = name.match(expr);
+            if (match !== null) {
+                var index = match[1];
+                var name = match[2];
+                if (ret[index] == undefined) {
+                    var obj = {};
+                    obj[name] = val;
+                    ret[index] = obj;
+                }
+                ret[index][name] = val;
+            } else {
+                ret[name] = val;
+            }
         });
+        for (var i in ret) {
+            if (typeof (ret[i]) === 'object') {
+                ret[i] = JSON.stringify(ret[i]);
+            }
+        }
         return ret;
     };
 })(jQuery);
@@ -61,8 +81,8 @@ MenuBuilder.prototype.setData = function (el, data) {
     el.data('id', data['data-id']);
     el.data('url', data['data-url']);
     el.data('label', data['data-label']);
-    el.data('optionsTitle', data['data-options-title']);
-    el.data('optionsClass', data['data-options-class']);
+    el.data('options', JSON.parse(data['data-options']));
+//    el.data('optionsClass', data['data-options']);
 };
 
 MenuBuilder.prototype.setDataInvert = function (el, data) {
@@ -70,8 +90,8 @@ MenuBuilder.prototype.setDataInvert = function (el, data) {
     el.attr('data-id', data['id']);
     el.attr('data-url', data['url']);
     el.attr('data-label', data['label']);
-    el.attr('data-options-title', data['optionsTitle']);
-    el.attr('data-options-class', data['optionsClass']);
+    el.attr('data-options', JSON.stringify(data['options']));
+//    el.attr('data-options-class', data['optionsClass']);
 };
 
 MenuBuilder.prototype.setEvents = function () {
@@ -108,12 +128,13 @@ MenuBuilder.prototype.setEvents = function () {
         li.attr('class', 'dd-item');
         var tmpl = MenuBuilder.template_type_2;
         var index = self.getNewId();
+        var options = JSON.parse(data['data-options']);
         var html = tmpl
                 .split('{index}').join(index)
                 .split('{url-value}').join(data['data-url'])
                 .split('{url-label}').join(data['data-label'])
-                .split('{options-title}').join(data['data-options-title'])
-                .split('{options-class}').join(data['data-options-class']);
+                .split('{options-title}').join(options['title'])
+                .split('{options-class}').join(options['class']);
         li.html(html);
         data['data-id'] = index;
 
@@ -137,8 +158,8 @@ MenuBuilder.prototype.setEvents = function () {
                     .split('{index}').join(index)
                     .split('{url-value}').join(data[i]['url'])
                     .split('{url-label}').join(data[i]['label'])
-                    .split('{options-title}').join(data[i]['optionsTitle'])
-                    .split('{options-class}').join(data[i]['optionsClass']);
+                    .split('{options-title}').join(data[i]['options[title]'])
+                    .split('{options-class}').join(data[i]['options[class]']);
             li.html(html);
             data[i]['id'] = index;
 
@@ -177,12 +198,12 @@ MenuBuilder.template_type_1 =
         + '                        </div>'
         + '                        <div class="form-group col-xs-6">'
         + '                            <label>Атрибут title</label>'
-        + '                            <input name="data-options-title" class="form-control" value="{options-title}">'
+        + '                            <input name="data-options[title]" class="form-control" value="{options-title}">'
         + '                        </div>'
         + '                    </div>'
         + '                    <div class="form-group">'
         + '                        <label>Классы CSS</label>'
-        + '                        <input name="data-options-class" class="form-control" value="{options-class}">'
+        + '                        <input name="data-options[class]" class="form-control" value="{options-class}">'
         + '                        <p class="help-block">Необязательно.</p>'
         + '                    </div>'
         + '                    <a data-toggle="collapse" data-parent="#accordion-{index}" href="#collapse-{index}" aria-expanded="true" aria-controls="collapse-{index}" class="btn btn-default btn-save">Сохранить</a>'
@@ -220,12 +241,12 @@ MenuBuilder.template_type_2 =
         + '                        </div>'
         + '                        <div class="form-group col-xs-6">'
         + '                            <label>Атрибут title</label>'
-        + '                            <input name="data-options-title" class="form-control" value="{options-title}">'
+        + '                            <input name="data-options[title]" class="form-control" value="{options-title}">'
         + '                        </div>'
         + '                    </div>'
         + '                    <div class="form-group">'
         + '                        <label>Классы CSS</label>'
-        + '                        <input name="data-options-class" class="form-control" value="{options-class}">'
+        + '                        <input name="data-options[class]" class="form-control" value="{options-class}">'
         + '                        <p class="help-block">Необязательно.</p>'
         + '                    </div>'
         + '                    <a data-toggle="collapse" data-parent="#accordion-{index}" href="#collapse-{index}" aria-expanded="true" aria-controls="collapse-{index}" class="btn btn-default btn-save">Сохранить</a>'

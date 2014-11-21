@@ -11,12 +11,12 @@
             </div>
             <div class="form-group col-xs-6">
                 <label>Атрибут title</label>
-                <input name="data-options-title" class="form-control">
+                <input name="data-options[title]" class="form-control">
             </div>
         </div>
         <div class="form-group">
             <label>Классы CSS</label>
-            <input name="data-options-class" class="form-control">
+            <input name="data-options[class]" class="form-control">
             <p class="help-block">Необязательно.</p>
         </div>
         <a class="btn btn-default btn-add-links">Добавить</a>

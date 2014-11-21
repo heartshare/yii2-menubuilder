@@ -12,10 +12,11 @@ use yii\helpers\Html;
                     <label>
                         <?=
                         Html::checkbox('pages[]', false, [
-                            'data' => ['url' => $page['url']],
-                            'data-label' => $page['label'],
-                            'data-options-title' => $page['optionsTitle'],
-                            'data-options-class' => $page['optionsClass'],
+                            'data' => [
+                                'url' => $page['url'],
+                                'label' => $page['label'],
+                                'options' => $page['options'],
+                            ],
                         ])
                         ?>
                         <?= $page['label'] ?>
