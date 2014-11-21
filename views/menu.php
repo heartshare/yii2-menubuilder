@@ -44,7 +44,7 @@ $items[] = [
             </div>
         </div>
         <div class="panel-footer" <?= YII_DEBUG ? '' : 'style="display: none"' ?>>
-            <?= Html::activeTextarea($model, $attribute) ?>
+            <?= Html::activeTextarea($model, $attribute, ['cols' => 100, 'rows' => 5]) ?>
         </div>
     </div>
 

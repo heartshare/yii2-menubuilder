@@ -19,7 +19,7 @@ var updateOutput = function (e)
         $.each($(this).find(':input'), function () {
             var name = $(this).attr('name');
             var val = $(this).val();
-            var expr = /([a-zA-Z0-9-]*?)\[([a-zA-Z0-9-]*?)\]/;
+            var expr = /([a-zA-Z][a-zA-Z0-9-]*?)\[([a-zA-Z][a-zA-Z0-9-]*?)\]/;
             var match = name.match(expr);
             if (match !== null) {
                 var index = match[1];
@@ -35,7 +35,8 @@ var updateOutput = function (e)
             }
         });
         for (var i in ret) {
-            if (typeof (ret[i]) === 'object') {
+            console.log(ret[i], typeof (ret[i]));
+            if (typeof (ret[i]) === 'object' && !(ret[i] instanceof Array)) {
                 ret[i] = JSON.stringify(ret[i]);
             }
         }
@@ -78,11 +79,11 @@ MenuBuilder.prototype.getMaxId = function () {
 
 MenuBuilder.prototype.setData = function (el, data) {
     el.attr(data);
+    console.log(data['data-url'], typeof (data['data-url']));
     el.data('id', data['data-id']);
     el.data('url', data['data-url']);
     el.data('label', data['data-label']);
     el.data('options', JSON.parse(data['data-options']));
-//    el.data('optionsClass', data['data-options']);
 };
 
 MenuBuilder.prototype.setDataInvert = function (el, data) {
@@ -91,7 +92,6 @@ MenuBuilder.prototype.setDataInvert = function (el, data) {
     el.attr('data-url', data['url']);
     el.attr('data-label', data['label']);
     el.attr('data-options', JSON.stringify(data['options']));
-//    el.attr('data-options-class', data['optionsClass']);
 };
 
 MenuBuilder.prototype.setEvents = function () {
@@ -111,7 +111,6 @@ MenuBuilder.prototype.setEvents = function () {
         var form = $(this).closest('.div-form');
         var data = form.serializeAny();
         var item = form.closest('li');
-
         self.setData(item, data);
         self.update();
         $('.panel-title>.item-label', item).filter(':first').text(data['data-label']);
@@ -156,10 +155,10 @@ MenuBuilder.prototype.setEvents = function () {
             li.attr('class', 'dd-item');
             var html = tmpl
                     .split('{index}').join(index)
-                    .split('{url-value}').join(data[i]['url'])
+                    .split('{url-value}').join(JSON.stringify(data[i]['url']))
                     .split('{url-label}').join(data[i]['label'])
-                    .split('{options-title}').join(data[i]['options[title]'])
-                    .split('{options-class}').join(data[i]['options[class]']);
+                    .split('{options-title}').join(data[i]['options']['title'])
+                    .split('{options-class}').join(data[i]['options']['class']);
             li.html(html);
             data[i]['id'] = index;
 
@@ -189,7 +188,7 @@ MenuBuilder.template_type_1 =
         + '                <div class="div-form" role="form">'
         + '                    <div class="form-group">'
         + '                        <label>Страница "{url-label}"</label>'
-        + '                        <input name="data-url" type="hidden" class="form-control" value="{url-value}">'
+//        + '                        <input name="data-url" type="hidden" class="form-control" value={url-value}>'
         + '                    </div>'
         + '                    <div class="row">'
         + '                        <div class="form-group col-xs-6">'
