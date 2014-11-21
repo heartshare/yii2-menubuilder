@@ -94,7 +94,7 @@ MenuBuilder.prototype.setEvents = function () {
 
         self.setData(item, data);
         self.update();
-        $('.panel-title .item-label', item).text(data['data-label']);
+        $('.panel-title>.item-label', item).filter(':first').text(data['data-label']);
     });
 
     $(document).on('click', '.dd-list .btn-delete', function () {
