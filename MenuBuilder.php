@@ -62,7 +62,6 @@ class MenuBuilder extends \yii\widgets\InputWidget {
                 ],
         ]);
         $data = ['item' => $item, 'index' => $index];
-        var_dump($item['url']);
         $html .= is_array($item['url']) ? $view->render('forms/edit_type_2', $data) : $view->render('forms/edit_type_1', $data);
         if (isset($item['children'])) {
             $html.=self::renderList($item['children']);
